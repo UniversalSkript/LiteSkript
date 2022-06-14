@@ -1,6 +1,7 @@
 package net.liteskript.pattern.compilation;
 
 import net.liteskript.pattern.LiteSkriptPattern;
+import net.liteskript.pattern.compilation.element.CompoundElement;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -13,10 +14,8 @@ public class ElementCompiler {
     private static ByteBuffer allocByteBuffer(final List<Element> elements) {
         int total = 0;
 
-        for (Element element : elements) {
-            if (element.type.opCode != 0x0)
-                total += element.type.instructionLength;
-        }
+        for (Element element : elements)
+            total += element.type.instructionLength;
         if (total < 1)
             return null;
         return ByteBuffer.allocate(total);
@@ -25,7 +24,7 @@ public class ElementCompiler {
     private static void fillElementInside(final Element compoundElement, final List<Element> insideElements, final List<Element> elements) {
         insideElements.clear();
         for (Element element : elements) {
-            if (compoundElement != element && element.isInside(compoundElement))
+            if (compoundElement != element && element.isInsideCompound(compoundElement))
                 insideElements.add(element);
         }
         Collections.reverse(insideElements);
@@ -58,7 +57,10 @@ public class ElementCompiler {
         context.elements.sort(Element::compare);
         insideElements = new ArrayList<Element>();
         for (Element element : context.elements) {
-            fillElementInside(element, insideElements, context.elements);
+            if (element instanceof CompoundElement)
+                fillElementInside(element, insideElements, context.elements);
+            else
+                insideElements.clear();
             element.compile(context, insideElements, writer);
         }
         return new LiteSkriptPattern(writer.array(), createLiterals(context.literals), context.regex.toArray(new Pattern[context.regex.size()]));

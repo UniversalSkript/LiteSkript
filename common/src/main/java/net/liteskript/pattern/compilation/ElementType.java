@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation;
 
 public enum ElementType {
 
-    GROUP((byte) 0x0),
+    GROUP((byte) 0x0, 0),
     LITERAL((byte) 0x1),
     OPTIONAL((byte) 0x2),
     CHOICE((byte) 0x3),

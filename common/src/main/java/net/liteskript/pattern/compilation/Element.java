@@ -15,8 +15,8 @@ public abstract class Element {
         this.length = length;
     }
 
-    protected boolean isInside(final Element element) {
-        return this.startIndex >= element.startIndex && this.startIndex + this.length <= element.startIndex + element.length;
+    protected boolean isInsideCompound(final Element compoundElement) {
+        return this.startIndex >= compoundElement.startIndex && this.startIndex + this.length <= compoundElement.startIndex + compoundElement.length + 1;
     }
 
     public abstract void compile(final CompileContext context, final List<Element> insideElements, final ByteBuffer writer);

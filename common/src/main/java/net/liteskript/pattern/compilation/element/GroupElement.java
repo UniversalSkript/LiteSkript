@@ -7,10 +7,15 @@ import net.liteskript.pattern.compilation.ElementType;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-public class GroupElement extends Element {
+public class GroupElement extends CompoundElement {
 
     public GroupElement(final int startIndex, final int length) {
         super(ElementType.GROUP, startIndex, length);
+    }
+
+    @Override
+    public void compileCompound(CompileContext context, int compoundByteCount, ByteBuffer writer) {
+
     }
 
     @Override
