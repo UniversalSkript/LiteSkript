@@ -1,0 +1,6 @@
+rootProject.name = 'LiteSkript'
+
+['common', 'bukkit', 'bungeecord'].each {
+    include ":liteskript-${it}"
+    project(":liteskript-${it}").projectDir = file(it)
+}

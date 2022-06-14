@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':liteskript-common')
+    compileOnly 'net.md5:bungeecord-api:1.18-R0.1-SNAPSHOT'
+}

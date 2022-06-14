@@ -1,0 +1,31 @@
+allprojects {
+    group 'net.liteskript'
+    version '1.0-SNAPSHOT'
+    description 'A lighter Skript plugin.'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://nexus.mrcubee.net/repository/minecraft/'
+        }
+    }
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs += ["-source", "1.8", "-target", "1.8"]
+    }
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+    processResources {
+        filesMatching('**') {
+            expand(
+                    name: 'LiteSkript',
+                    version: project.version,
+                    url: 'https://github.com/UniversalSkript/LiteSkript',
+                    description: project.description
+            )
+        }
+    }
+}
