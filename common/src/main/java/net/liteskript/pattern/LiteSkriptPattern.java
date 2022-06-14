@@ -4,9 +4,9 @@ import java.util.regex.Pattern;
 
 public class LiteSkriptPattern {
 
-    private final char[][] literals;
-    private final Pattern[] regex;
-    private final byte[] compiledPattern;
+    protected final char[][] literals;
+    protected final Pattern[] regex;
+    protected final byte[] compiledPattern;
 
     public LiteSkriptPattern(final byte[] compiledPattern, final char[][] literals, final Pattern[] regex) {
         this.compiledPattern = compiledPattern;
