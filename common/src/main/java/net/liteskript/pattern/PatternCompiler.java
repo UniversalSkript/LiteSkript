@@ -39,7 +39,7 @@ public class PatternCompiler {
 
         if (startIndex < 0 || stopIndex <= startIndex)
             return;
-        literal = context.literalBuilder.toString();
+        literal = context.literalBuilder.toString().toLowerCase().replaceAll("\t", "").trim();
         context.literalBuilder.setLength(0);
         if (literal.isEmpty())
             return;
@@ -61,7 +61,7 @@ public class PatternCompiler {
                     nextIndex = getNextBracket(context.patternChars, i + 1, ']', currentChar);
                     if (nextIndex == -1)
                         throw new MalformedPatternException(context.patternStr, "Missing closing bracket ']'");
-                    context.elements.add(new OptionalElement(i, nextIndex - i - 1));
+                    context.elements.add(new OptionalElement(i, nextIndex - i));
                     context.tasks.add(new Task(i + 1, nextIndex));
                     i = nextIndex;
                     break;
@@ -70,7 +70,7 @@ public class PatternCompiler {
                     nextIndex = getNextBracket(context.patternChars, i + 1, ')', currentChar);
                     if (nextIndex == -1)
                         throw new MalformedPatternException(context.patternStr, "Missing closing bracket ')'");
-                    context.elements.add(new GroupElement(i, nextIndex - i - 1));
+                    context.elements.add(new GroupElement(i, nextIndex - i));
                     context.tasks.add(new Task(i + 1, nextIndex));
                     i = nextIndex;
                     break;
@@ -79,8 +79,7 @@ public class PatternCompiler {
                     nextIndex = getNextBracket(context.patternChars, i + 1, '>', currentChar);
                     if (nextIndex == -1)
                         throw new MalformedPatternException(context.patternStr, "Missing closing bracket '>'");
-                    context.elements.add(new RegexElement(i, nextIndex - i - 1));
-                    context.tasks.add(new Task(i + 1, nextIndex));
+                    context.elements.add(new RegexElement(i, nextIndex - i));
                     i = nextIndex;
                     break;
                 case '|':

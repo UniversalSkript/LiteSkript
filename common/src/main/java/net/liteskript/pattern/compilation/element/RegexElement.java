@@ -17,7 +17,7 @@ public class RegexElement extends Element {
 
     @Override
     public void compile(final CompileContext context, final List<Element> insideElements, final ByteBuffer writer) {
-        final String patternStr = new String(context.patternChars, this.startIndex, this.length);
+        final String patternStr = new String(context.patternChars, this.startIndex + 1, this.length -1);
         final Pattern pattern;
         int index;
 
