@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.ElementType;
+import net.liteskript.pattern.compilation.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -12,7 +12,7 @@ public class LiteralElement extends Element {
     private final String literal;
 
     public LiteralElement(final String literal, final int startIndex, final int length) {
-        super(ElementType.LITERAL, startIndex, length);
+        super(Instructions.LITERAL, startIndex, length);
         if (literal != null)
             this.literal = literal.toLowerCase().replaceAll("\t", "").trim();
         else

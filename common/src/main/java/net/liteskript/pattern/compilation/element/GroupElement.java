@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.ElementType;
+import net.liteskript.pattern.compilation.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class GroupElement extends CompoundElement {
 
     public GroupElement(final int startIndex, final int length) {
-        super(ElementType.GROUP, startIndex, length);
+        super(Instructions.GROUP, startIndex, length);
     }
 
     @Override

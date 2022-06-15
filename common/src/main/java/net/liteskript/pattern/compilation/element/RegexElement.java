@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.ElementType;
+import net.liteskript.pattern.compilation.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.regex.PatternSyntaxException;
 public class RegexElement extends Element {
 
     public RegexElement(final int startIndex, final int length) {
-        super(ElementType.REGEX, startIndex, length);
+        super(Instructions.REGEX, startIndex, length);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.List;
 public class ChoiceElement extends Element {
 
     public ChoiceElement(final int startIndex, final int length) {
-        super(ElementType.CHOICE, startIndex, length);
+        super(Instructions.CHOICE, startIndex, length);
     }
 
     @Override

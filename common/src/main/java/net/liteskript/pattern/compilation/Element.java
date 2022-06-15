@@ -5,11 +5,11 @@ import java.util.List;
 
 public abstract class Element {
 
-    public final ElementType type;
+    public final Instructions type;
     public final int startIndex;
     public final int length;
 
-    public Element(final ElementType type, final int startIndex, final int length) {
+    public Element(final Instructions type, final int startIndex, final int length) {
         this.type = type;
         this.startIndex = startIndex;
         this.length = length;

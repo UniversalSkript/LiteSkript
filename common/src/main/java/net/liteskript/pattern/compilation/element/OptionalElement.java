@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.ElementType;
+import net.liteskript.pattern.compilation.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class OptionalElement extends CompoundElement {
 
     public OptionalElement(int startIndex, int length) {
-        super(ElementType.OPTIONAL, startIndex, length);
+        super(Instructions.OPTIONAL, startIndex, length);
     }
 
     @Override

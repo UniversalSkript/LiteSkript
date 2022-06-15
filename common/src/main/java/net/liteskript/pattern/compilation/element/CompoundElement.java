@@ -2,14 +2,14 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.ElementType;
+import net.liteskript.pattern.compilation.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
 
 public abstract class CompoundElement extends Element {
 
-    public CompoundElement(final ElementType type, final int startIndex, final int length) {
+    public CompoundElement(final Instructions type, final int startIndex, final int length) {
         super(type, startIndex, length);
     }
 
