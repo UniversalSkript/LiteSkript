@@ -1,4 +1,4 @@
-package net.liteskript.pattern.compilation;
+package net.liteskript.pattern;
 
 public enum Instructions {
 

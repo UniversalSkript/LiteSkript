@@ -2,7 +2,7 @@ package net.liteskript.pattern.compilation.element;
 
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.Element;
-import net.liteskript.pattern.compilation.Instructions;
+import net.liteskript.pattern.Instructions;
 
 import java.nio.ByteBuffer;
 import java.util.List;
