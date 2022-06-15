@@ -1,6 +1,5 @@
 package net.liteskript.pattern;
 
-import net.liteskript.pattern.compilation.ElementType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,6 +93,16 @@ public class TestPatternCompiler {
         assertArrayEquals(byteCode, liteSkriptPattern.compiledPattern);
         assertEquals(1, liteSkriptPattern.regex.length);
         assertEquals(".*", liteSkriptPattern.regex[0].toString());
+    }
+
+    @Test
+    public void testUnexpectedClosingRegex() {
+        assertThrowsExactly(MalformedPatternException.class, () -> PatternCompiler.compile("<.*>>"));
+    }
+
+    @Test
+    public void testMissingClosingRegex() {
+        assertThrowsExactly(MalformedPatternException.class, () -> PatternCompiler.compile("<.*"));
     }
 
 }
