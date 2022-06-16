@@ -1,19 +1,16 @@
 package net.liteskript.pattern;
 
+import net.liteskript.pattern.compilation.ChoiceElement;
 import net.liteskript.pattern.compilation.CompileContext;
 import net.liteskript.pattern.compilation.ElementCompiler;
 import net.liteskript.pattern.compilation.Task;
-import net.liteskript.pattern.compilation.element.GroupElement;
-import net.liteskript.pattern.compilation.element.LiteralElement;
-import net.liteskript.pattern.compilation.element.OptionalElement;
-import net.liteskript.pattern.compilation.element.RegexElement;
+import net.liteskript.pattern.compilation.element.*;
 
 public class PatternCompiler {
 
     private static int getNextBracket(final char[] patternChars, final int index, final char closingBracket, final char openingBracket) {
         int ignore;
         char currentChar;
-
 
         if (patternChars == null || index < 0 || index >= patternChars.length)
             return -1;
@@ -47,10 +44,12 @@ public class PatternCompiler {
         context.literalBuilder.setLength(0);
     }
 
-    public static void compileTask(final CompileContext context) throws MalformedPatternException {
+    private static void compileTask(final CompileContext context) throws MalformedPatternException {
         final Task task = context.tasks.remove();
+        ChoiceElement lastChoice = null;
         int nextIndex;
         char currentChar;
+        int length;
 
         nextIndex = task.startIndex;
         for (int i = nextIndex; i < task.endIndex; i++) {
@@ -83,7 +82,16 @@ public class PatternCompiler {
                     i = nextIndex;
                     break;
                 case '|':
-                    // TODO: Found solution for choice element.
+                    compileLiteral(context, nextIndex, i);
+                    if (lastChoice == null)
+                        lastChoice = new ChoiceElement(task.startIndex, i - task.startIndex);
+                    else {
+                        nextIndex = lastChoice.startIndex + lastChoice.length;
+                        lastChoice = new ChoiceElement(nextIndex, i - nextIndex);
+                    }
+                    nextIndex = i + 1;
+                    context.elements.add(lastChoice);
+                    context.elements.add(new JumpElement(i, task.endIndex - i));
                     break;
                 case ']':
                 case ')':

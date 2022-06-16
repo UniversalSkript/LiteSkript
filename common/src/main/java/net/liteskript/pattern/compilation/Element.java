@@ -1,6 +1,7 @@
 package net.liteskript.pattern.compilation;
 
 import net.liteskript.pattern.Instructions;
+import net.liteskript.pattern.compilation.element.CompoundElement;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -28,7 +29,20 @@ public abstract class Element {
             return -1;
         if (element1.startIndex > element2.startIndex)
             return 1;
-        return Integer.compare(element1.length, element2.length);
+        if (element1.length > element2.length)
+            return -1;
+        if (element1.length < element2.length)
+            return 1;
+        if (element1 instanceof CompoundElement && !(element2 instanceof CompoundElement))
+            return -1;
+        if (!(element1 instanceof CompoundElement) && element2 instanceof CompoundElement)
+            return 1;
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " (" + this.startIndex + ", " + this.length + ")";
     }
 
 }

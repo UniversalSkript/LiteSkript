@@ -13,7 +13,10 @@ public abstract class CompoundElement extends Element {
         super(type, startIndex, length);
     }
 
-    public abstract void compileCompound(final CompileContext context, final int compoundByteCount, final ByteBuffer writer);
+    public void compileCompound(final CompileContext context, final int compoundByteCount, final ByteBuffer writer) {
+        writer.put(this.type.opCode);
+        writer.putShort((short) (writer.position() + compoundByteCount + 2));
+    }
 
     @Override
     public void compile(CompileContext context, List<Element> insideElements, ByteBuffer writer) {

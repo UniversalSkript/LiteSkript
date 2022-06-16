@@ -84,7 +84,6 @@ public class TestPatternCompiler {
         assertArrayEquals("world".toCharArray(), liteSkriptPattern.literals[3]);
     }
 
-
     @Test
     public void testRegex() {
         final LiteSkriptPattern liteSkriptPattern = PatternCompiler.compile("<.*>");
@@ -103,6 +102,31 @@ public class TestPatternCompiler {
     @Test
     public void testMissingClosingRegex() {
         assertThrowsExactly(MalformedPatternException.class, () -> PatternCompiler.compile("<.*"));
+    }
+
+    @Test
+    public void testChoice() {
+        final LiteSkriptPattern liteSkriptPattern = PatternCompiler.compile("Bonjour|Hello|Hey");
+        final byte[] byteCode = new byte[] {3, 0, 9, 1, 0, 0, 7, 0, 21, 3, 0, 18, 1, 0, 1, 7, 0, 21, 1, 0, 2};
+
+        assertArrayEquals(byteCode, liteSkriptPattern.compiledPattern);
+        assertEquals(3, liteSkriptPattern.literals.length);
+        assertArrayEquals("bonjour".toCharArray(), liteSkriptPattern.literals[0]);
+        assertArrayEquals("hello".toCharArray(), liteSkriptPattern.literals[1]);
+        assertArrayEquals("hey".toCharArray(), liteSkriptPattern.literals[2]);
+    }
+
+    @Test
+    public void testMultipleChoice() {
+        final LiteSkriptPattern liteSkriptPattern = PatternCompiler.compile("(Bonjour|Hello) miss | hey");
+        final byte[] byteCode = new byte[] {3, 0, 21, 3, 0, 12, 1, 0, 0, 7, 0, 15, 1, 0, 1, 1, 0, 2, 7, 0, 24, 1, 0, 3};
+
+        assertArrayEquals(byteCode, liteSkriptPattern.compiledPattern);
+        assertEquals(4, liteSkriptPattern.literals.length);
+        assertArrayEquals("bonjour".toCharArray(), liteSkriptPattern.literals[0]);
+        assertArrayEquals("hello".toCharArray(), liteSkriptPattern.literals[1]);
+        assertArrayEquals("miss".toCharArray(), liteSkriptPattern.literals[2]);
+        assertArrayEquals("hey".toCharArray(), liteSkriptPattern.literals[3]);
     }
 
 }

@@ -27,9 +27,7 @@ public class ElementCompiler {
             if (compoundElement != element && element.isInsideCompound(compoundElement))
                 insideElements.add(element);
         }
-        Collections.reverse(insideElements);
     }
-
 
     public static char[][] createLiterals(final List<String> literals) {
         final char[][] result;
@@ -47,7 +45,6 @@ public class ElementCompiler {
     public static LiteSkriptPattern compile(final CompileContext context) {
         final ByteBuffer writer;
         final ArrayList<Element> insideElements;
-        final LiteSkriptPattern liteSkriptPattern;
 
         if (context == null)
             return null;
